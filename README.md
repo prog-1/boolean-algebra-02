@@ -40,3 +40,9 @@ Implement a function `func CNF(table [][]int) string` that returns a string repr
 Write tests for the function.
 
 *Note: For this task, you need to figure out an algorithm that translates a truth table to CNF.*
+
+## 4-Bit Full Adder
+
+Design a 4-Bit full adder in [https://logic.ly](https://logic.ly/demo/samples). You may use "1-Bit Full Adder" design from samples.
+
+Make a circuit screenshot and upload it to this repository.
