@@ -1,24 +1,34 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
-func s(t [][]int, line int) string {
-	if t[line][0] == 1 && t[line][1] == 1 {
-		return "(a_0 & a_1) | "
+func plug(t [][]int, line, coll int) (function string) {
+	function = function + "("
+	for a := 0; a < coll-1; a++ {
+		if t[line][a] == 1 {
+			function = function + "a_" + fmt.Sprint(a) + " & "
+		} else {
+			function = function + "!a_" + fmt.Sprint(a) + " & "
+		}
 	}
-	if t[line][0] == 1 && t[line][1] == 0 {
-		return "(a_0 & !a_1) | "
+	if len(function) != 0 {
+		out := []byte(function)
+		function = string(out[:len(out)-3])
 	}
-	if t[line][0] == 0 && t[line][1] == 1 {
-		return "(!a_0 & a_1) | "
-	}
-	return "(!a_0 & !a_1) | "
+	function = function + ") | "
+	return function
 }
 
 func DNF(t [][]int) (function string) {
-	for line := 0; line < 4; line++ {
-		if t[line][2] == 1 {
-			function = function + s(t, line)
+	a := math.Sqrt(float64(len(t))) + 1
+	coll := int(a)
+
+	for line := 0; line < len(t); line++ {
+		if t[line][coll-1] == 1 {
+			function = function + plug(t, line, coll)
 		}
 	}
 	if len(function) != 0 {
